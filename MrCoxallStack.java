@@ -1,9 +1,9 @@
 /*
 * The MrCoxallStack program implements an application that
-* creates a stack.
+* creates a stack and allows you to edit it.
 *
 * @author  Ben Whitten
-* @version 1.0
+* @version 1.1
 * @since   2020-12-8
 */
 
@@ -16,35 +16,50 @@ public class MrCoxallStack {
   private ArrayList<Integer> someStack = new ArrayList<Integer>();
 
   // variables for later.
-  private int poppedNumber;
-  private int gottenNumber;
+  private String poppedNumber;
+  private int position;
+  private int intPushedNumber;
+  private String stackValues;
 
   /////////////////////////////////////////////////////////////////////////////
-  // Push function.
-  public void push(int addition) {
-    someStack.add(addition);
+  /**
+   * Push function.
+   */
+  public String push(String pushedNumber) {
+    intPushedNumber = Integer.parseInt(pushedNumber);
+    someStack.add(intPushedNumber);
+    pushedNumber = "Pushed: " + pushedNumber;
+
+    return pushedNumber;
   }
   
   /////////////////////////////////////////////////////////////////////////////
   /**
    * Pop function.
    */
-  public int pop(int size) {
-    poppedNumber = someStack.get(size);
-    someStack.remove(size);
+  public String pop() {
+    poppedNumber = "Popped: ";
+    poppedNumber += someStack.get(someStack.size() - 1);
+    someStack.remove(someStack.size() - 1);
+
     return poppedNumber;
   }
-  
+
   /////////////////////////////////////////////////////////////////////////////
-  // Get function.
-  public int get(int position) {
-    gottenNumber = someStack.get(position);
-    return gottenNumber;
-  }
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Set function.
-  public void set(int position, int newNumber) {
-    someStack.set(position, newNumber);
+  /**
+   * Show function.
+   */
+  public String show() {
+
+    stackValues = "Current Stack Values: ";
+    stackValues += someStack.get(0);
+    position = 1;
+    if (someStack.size() > 0) {
+      for (position = 1; position < someStack.size(); position++) {
+        stackValues = stackValues + ", " + someStack.get(position);
+      }
+    }
+
+    return stackValues;
   }
 }

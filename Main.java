@@ -3,7 +3,7 @@
 * can edit a stack.
 *
 * @author  Ben Whitten
-* @version 1.0
+* @version 1.1
 * @since   2020-12-8
 */
 
@@ -22,14 +22,10 @@ class Main {
 
     // Variables which will be used later.
     String option;
-    int number;
-    int poppedNumber;
-    int size = -1;
-    int position;
-    int gottenNumber;
-    int change;
-    int newNumber;
-    int tempNumber;
+    String pushedNumber;
+    String poppedNumber;
+    String stackValues;
+    String pushedReturn;
 
     // Creating MrCoxallStack.
     MrCoxallStack someStack = new MrCoxallStack();
@@ -48,84 +44,56 @@ class Main {
         // Creating a scanner.
         Scanner scanSet = new Scanner(System.in);
 
-        // Asking what to do.
+        // Asking what to do to the array.
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
                            + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-        System.out.println("What do you want to do? [push] [pop] [get] [set]"
+        System.out.println("What do you want to do? [push] [pop] [get]"
                            + " [show]");
         option = scanOptions.nextLine();
         System.out.println();
 
         //////////////////////////////////////////////////////////////////////
-        // Push to MrCoxallStack.
+        // Push a number to MrCoxallStack.
         if (option.equals("push")) {
+          // Getting which number to add to the stack.
           System.out.println("Insert a number to add to the stack:");
-          number = scanPush.nextInt();
+          pushedNumber = scanPush.nextLine();
           System.out.println();
 
-          someStack.push(number);
-          System.out.println("pushed: " + number);
+          // Pushing the number onto the stack.
+          pushedReturn = someStack.push(pushedNumber);
+
+          System.out.println(pushedReturn);
           System.out.println();
-          size += 1;
 
         //////////////////////////////////////////////////////////////////////
-        // Pop off MrCoxallStack.
+        // Pop off the top number from MrCoxallStack.
         } else if (option.equals("pop")) {
-          poppedNumber = someStack.pop(size);
-          System.out.println("popped: " + poppedNumber);
-          System.out.println();
-          size -= 1;
+          // Popping off the top number from the stack.
+          poppedNumber = someStack.pop();
 
-        //////////////////////////////////////////////////////////////////////
-        // Get from MrCoxallStack.
-        } else if (option.equals("get")) {
-          System.out.println("Insert a what number to get from the stack:");
-          position = scanGet.nextInt();
+          System.out.println(poppedNumber);
           System.out.println();
 
-          gottenNumber = someStack.get(position);
-          System.out.println("got: " + gottenNumber);
-          System.out.println();
-          
-        //////////////////////////////////////////////////////////////////////
-        // Set a value in MrCoxallStack.
-        } else if (option.equals("set")) {
-          System.out.println("Insert a what number to change from the stack:");
-          position = scanSet.nextInt();
-          System.out.println();
-
-          System.out.println("Insert what to change it to:");
-          newNumber = scanSet.nextInt();
-          System.out.println();
-
-          gottenNumber = someStack.get(position);
-          someStack.set(position, newNumber);
-
-          System.out.println("set: " + gottenNumber + "(" + position + ") to "
-                             + newNumber);
-          System.out.println();
-          
         //////////////////////////////////////////////////////////////////////
         //Show MrCoxallStack.
         } else if (option.equals("show")) {
-          position = 0;
-          for (position = 0; position <= size; position++) {
-            gottenNumber = someStack.get(position);
-            System.out.println(gottenNumber);
-          }
+          stackValues = someStack.show();
+
+          System.out.println(stackValues);
           System.out.println();
 
         ///////////////////////////////////////////////////////////////////////
-        // Catch invalid input at start.
+        // Catch invalid input.
         } else {
-          System.out.println("ERROR: INVALID INPUT");
+          System.out.println("- ERROR: INVALID INPUT -");
           System.out.println();
         }
 
       /////////////////////////////////////////////////////////////////////////
       // Catch anything else.
       } catch (Exception e) {
-        System.out.println("ERROR: INVALID INPUT");
+        System.out.println("- AN ERROR HAS OCCURED -");
         System.out.println();
       }
     }
